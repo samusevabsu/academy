@@ -3,3 +3,10 @@ Changes added from another computer (in reality on git Hub to modulate situation
 The second commit
 
 The third commit
+
+The 4th commit in FEATURE branch
+
+The 5th commit in FEATURE branch
+
+The last commit FEATURE branch
+
