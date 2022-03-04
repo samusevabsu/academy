@@ -19,4 +19,4 @@ function compareValueAndPosition (firstNumber, secondNumber) {
     
 }
 
-compareValueAndPosition(3487, 3794)
+compareValueAndPosition(2345, 2478)
