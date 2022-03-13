@@ -5,7 +5,6 @@ class Tour {
         this.days = days;
         this.food = food;
     }
-
 }
 
 class SightseeingTour extends Tour{
@@ -22,7 +21,6 @@ class ShoppingTour extends Tour {
         super(cost, days, food);
         this.store = store;
     }
-
 }
 
 let greeceSightTour = new SightseeingTour(500, 2, 'Breakfast', 'Olympus');
