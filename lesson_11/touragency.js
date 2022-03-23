@@ -23,41 +23,60 @@ class ShoppingTour extends Tour {
     }
 }
 
-let greeceSightTour = new SightseeingTour(500, 2, 'Breakfast', 'Olympus');
-let minskSightTour = new SightseeingTour(200, 1, 'All inclusive', 'Old Town');
-let turkeyShoppingTour = new ShoppingTour(300, 3, 'Breakfast', 'Grand Bazar');
-let polandShoppingTour = new ShoppingTour(400, 5, 'Breakfast', 'Krakow Gallery');
-
-let tours = [];
-tours.push(greeceSightTour, minskSightTour, turkeyShoppingTour, polandShoppingTour);
-
-
 class TourAgent {
 
-    constructor(tours) {
-        this.tours = tours;
+    constructor() {
+        this.tours = [];
+        this.toursArrayByDays = [];
     }
 
-    findTours(days) {
-        let toursArrayByDays = [];
+    createTour(tourType, params) {
+        let individulTour = (tourType === 'sightseeing') ? new SightseeingTour(params[0], params[1], params[2], params[3]) :
+            (tourType === 'shopping') ? new ShoppingTour(params[0], params[1], params[2], params[3]) :
+            new Error('There is no such Tour. Pleae choose Shopping or Sightseeing')
+            
+        this.tours.push(individulTour);
+        return this;
+    }
+
+    // getCreatedTours() {
+    //     console.log(this.tours);
+    //     return this;
+    // }
+
+
+    findToursUpToDays(days) {
         this.tours.forEach(element => {
             if(element.days <= days){
-                toursArrayByDays.push(element)
+                this.toursArrayByDays.push(element)
+            } else {
+                new Error('Sorry, We have no available tours for you')
             }
         });
-        console.log(toursArrayByDays);
-        return toursArrayByDays;
+        return this;
         
     }
 
-    sortByCost(toursArrayByDays, keyName) {
-        console.log(toursArrayByDays.sort((a, b) => a[keyName] > b[keyName] ? 1 : -1));
-
+    sortByCost(keyName) {
+        this.toursArrayByDays.sort((a, b) => a[keyName] > b[keyName] ? 1 : -1);
+        return this;
     }
+
+    getTotalToursCost() {
+        let generalTourCost = this.toursArrayByDays.map(tour => tour.cost).reduce((pricePr, priceCur) => {
+            return pricePr + priceCur;
+        }, 0)
+        console.log(generalTourCost);
+    }
+
 }
 
-let agent = new TourAgent(tours);
+let agent =  new TourAgent();
+agent.createTour('sightseeing', [3000, 6, 'lunch', 'bazar']);
+agent.createTour('shopping', [2000, 10, 'brekfast', 'old town']);
+agent.createTour('shopping', [1000, 1, 'brekfast', 'old town']);
 
-let toursArrayByDays = agent.findTours(4);
-agent.sortByCost(toursArrayByDays, 'cost');
+agent.findToursUpToDays(6).sortByCost('cost').getTotalToursCost();
+
+
 
